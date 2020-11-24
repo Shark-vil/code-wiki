@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+$AUTH_REGISTER = env('AUTH_REGISTER');
+Auth::routes([
+    'register' => $AUTH_REGISTER,
+    'reset' => $AUTH_REGISTER,
+    'verify' => $AUTH_REGISTER,
+]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
