@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Создание категории</div>
                 <div class="card-body">
-                    <form class="form-group" id="edit-form">
+                    <form class="form-group" id="create-form">
                         @csrf
                         
                         <label>Название категории</label>
@@ -34,7 +34,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(function() {
-            $("#edit-form").submit(function(e) {
+            $("#create-form").submit(function(e) {
                 e.preventDefault();
 
                 var form = $(this);

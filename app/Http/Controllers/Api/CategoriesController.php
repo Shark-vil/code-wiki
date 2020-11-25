@@ -24,7 +24,7 @@ class CategoriesController extends Controller
             $category = Category::where('name', $name)->first();
 
             if (Category::where('name', $name)->first()) {
-                response()->json(['error' => 'Такая категория уже существует'], 412);
+                return response()->json(['error' => 'Такая категория уже существует'], 412);
             } else {
                 $category = Category::create([
                     'name' => $name

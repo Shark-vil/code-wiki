@@ -1,0 +1,6 @@
+/* Pretty Code Fix */
+pre.prettyprint {
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+}

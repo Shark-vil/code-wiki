@@ -13,6 +13,13 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
+    <script src="{{ asset('js/summernote-bs4.min.js') }}" defer></script>
+    <script src="{{ asset('js/lang/summernote-ru-RU.min.js') }}" defer></script>
+    <script src="{{ asset('js/summernote-ext-highlight.min.js') }}" defer></script>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://rawgit.com/google/code-prettify/master/src/prettify.css"/>
+    <script type="text/javascript" src="https://rawgit.com/google/code-prettify/master/src/prettify.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +28,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/summernote-bs4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/highlight.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

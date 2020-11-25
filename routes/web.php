@@ -38,3 +38,8 @@ Route::get('/categories/edit/{id}',
 Route::get('/categories/create',
     [App\Http\Controllers\CategoriesController::class, 'create'])
     ->name('categories.create');
+
+
+Route::get('/pages/create',
+    [App\Http\Controllers\PagesController::class, 'create'])
+    ->name('pages.create');
