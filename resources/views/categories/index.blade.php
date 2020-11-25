@@ -21,7 +21,7 @@
                             <tr>
                                 <td scope="row">{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
-                                <td><button onclick="onEdit(this, {{ $category->id }})">Редактировать</button></td>
+                                <td><button onclick="{{ route('categories') }}">Редактировать</button></td>
                                 <td><button onclick="onDelete(this, {{ $category->id }})">Удалить</button></td>
                             </tr>
                             @endforeach
@@ -36,26 +36,27 @@
 
 @section('scripts')
     <script type="text/javascript">
-        function onEdit(editButton, id) {
+        function onDelete(editButton, id) {
             var cells = new CellsHelper(editButton);
             var data = {
                 id: cells.getValue(0),
-                name: cells.getValue(1),
                 api_token: "{{ Auth::user()->api_token }}"
             };
-            /*
-            $.ajax({
-                url: "{{ route('home') }}",
-                type: "POST",
-                data: data,
-                success(function(response) {
-                    alert(response);
-                }),
-                error(function() {
 
-                }),
+            $.ajax({
+                url: ("{{ route('api.categories.destroy', '%id') }}").replace('%id', id),
+                type: "DELETE",
+                data: data,
+                success: function(response) {
+                    console.log(response);
+
+                    if (response.id == id)
+                        cells.getRow().remove();
+                },
+                error: function(error) {
+                    console.error(error)
+                },
             });
-            */
         }
     </script>    
 @endsection

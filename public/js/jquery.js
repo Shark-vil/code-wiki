@@ -11024,13 +11024,18 @@ try {
       _classCallCheck(this, CellsHelperClass);
 
       if (obj.tagName !== "TR") obj = obj.closest('tr');
-      this.rows = obj;
+      this.row = obj;
     }
 
     _createClass(CellsHelperClass, [{
       key: "getValue",
       value: function getValue(id) {
-        return this.rows.cells[id].innerHTML;
+        return this.row.cells[id].innerHTML;
+      }
+    }, {
+      key: "getRow",
+      value: function getRow() {
+        return this.row;
       }
     }]);
 
@@ -11041,7 +11046,7 @@ try {
     if (!isProduction) console.log('Module "jQuery" was loaded successfully.');
   });
 } catch (e) {
-  if (!isProduction) console.assert('Failed to load "jQuery" module.');
+  if (!isProduction) console.error('Failed to load "jQuery" module.');
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 

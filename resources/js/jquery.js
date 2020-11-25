@@ -8,11 +8,15 @@ try {
             if (obj.tagName !== "TR")
                 obj = obj.closest('tr');
 
-            this.rows = obj;
+            this.row = obj;
         }
 
         getValue(id) {
-            return this.rows.cells[id].innerHTML
+            return this.row.cells[id].innerHTML
+        }
+
+        getRow() {
+            return this.row;
         }
     }
      
@@ -22,5 +26,5 @@ try {
     });
 } catch (e) {
     if (!isProduction)
-        console.assert('Failed to load "jQuery" module.');
+        console.error('Failed to load "jQuery" module.');
 }

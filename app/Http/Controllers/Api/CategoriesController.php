@@ -10,14 +10,24 @@ class CategoriesController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->has('id'))
+            return response()
+                ->json(Category::where('id', $request->input('id'))->first(), 200);
+
+        return response()->json(Category::get(), 200);
+    }
+
+    public function destroy(Request $request)
+    {
         if ($request->has('id')) {
-            return response(
-                Category::where('id', $request->input('id')->first())
-            );
+            $category = Category::where('id', $request->input('id'))->first();
+            if ($category) {
+                $response = $category;
+                $category->delete();
+                return response()->json($response, 200);
+            };
         }
 
-        return response(
-            Category::get()
-        );
+        return response()->json(['error' => ''], 412);
     }
 }

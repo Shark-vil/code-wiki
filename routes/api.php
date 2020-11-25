@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('api.token')
-    ->apiResource('/categories', App\Http\Controllers\Api\CategoriesController::class, [
-        'names' => [
-            'index' => 'api.categories.get',
-        ]
-    ]);
+Route::middleware('api.token')->get('categories', [
+    App\Http\Controllers\Api\CategoriesController::class, 'index'
+])->name('api.categories.get');
+
+Route::middleware('api.token')->delete('categories/{id}', [
+    App\Http\Controllers\Api\CategoriesController::class, 'destroy'
+])->name('api.categories.destroy');
