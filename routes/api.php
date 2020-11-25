@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::middleware('api.token')
+    ->apiResource('/categories', App\Http\Controllers\Api\CategoriesController::class, [
+        'names' => [
+            'index' => 'api.categories.get',
+        ]
+    ]);
