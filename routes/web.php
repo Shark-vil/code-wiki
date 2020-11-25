@@ -26,6 +26,11 @@ Auth::routes([
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('/categories',
     [App\Http\Controllers\CategoriesController::class, 'index'])
     ->name('categories');
+
+Route::get('/categories/edit/{id}',
+    [App\Http\Controllers\CategoriesController::class, 'edit'])
+    ->name('categories.edit');

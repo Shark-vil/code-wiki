@@ -19,10 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('api.token')->get('categories', [
-    App\Http\Controllers\Api\CategoriesController::class, 'index'
+Route::middleware('api.token')->get('categories/get/{id?}', [
+    App\Http\Controllers\Api\CategoriesController::class, 'get'
 ])->name('api.categories.get');
 
-Route::middleware('api.token')->delete('categories/{id}', [
-    App\Http\Controllers\Api\CategoriesController::class, 'destroy'
-])->name('api.categories.destroy');
+Route::middleware('api.token')->post('categories/delete/{id}', [
+    App\Http\Controllers\Api\CategoriesController::class, 'delete'
+])->name('api.categories.delete');
+
+Route::middleware('api.token')->post('categories/update/{id}', [
+    App\Http\Controllers\Api\CategoriesController::class, 'update'
+])->name('api.categories.update');

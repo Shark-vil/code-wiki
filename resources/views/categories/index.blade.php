@@ -21,8 +21,18 @@
                             <tr>
                                 <td scope="row">{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
-                                <td><button onclick="{{ route('categories') }}">Редактировать</button></td>
-                                <td><button onclick="onDelete(this, {{ $category->id }})">Удалить</button></td>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm" 
+                                        href="{{ route('categories.edit', $category->id) }}">
+                                        Редактировать
+                                    </a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" 
+                                        onclick="onDelete(this, {{ $category->id }})">
+                                        Удалить
+                                    </button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -35,7 +45,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
+    <script type="text/javascript">        
         function onDelete(editButton, id) {
             var cells = new CellsHelper(editButton);
             var data = {
@@ -44,17 +54,30 @@
             };
 
             $.ajax({
-                url: ("{{ route('api.categories.destroy', '%id') }}").replace('%id', id),
-                type: "DELETE",
+                url: ("{{ route('api.categories.delete', '%id') }}").replace('%id', id),
+                type: "POST",
                 data: data,
                 success: function(response) {
                     console.log(response);
 
-                    if (response.id == id)
+                    if (response.id == id) {
                         cells.getRow().remove();
+                        Toastify({
+                            text: "Категория '" + response.name + "' успешно удалена",
+                            duration: 3000,
+                            close: true,
+                            backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
+                        }).showToast();
+                    }
                 },
                 error: function(error) {
                     console.error(error)
+                    Toastify({
+                        text: "Возникла ошибка при попытке удалить категорию",
+                        duration: 3000,
+                        close: true,
+                        backgroundColor: "linear-gradient(to right, #a32929, #c92424)",
+                    }).showToast();
                 },
             });
         }

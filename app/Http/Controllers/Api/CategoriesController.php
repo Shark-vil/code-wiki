@@ -8,26 +8,39 @@ use App\Models\Category;
 
 class CategoriesController extends Controller
 {
-    public function index(Request $request)
+    public function get($id = null)
     {
-        if ($request->has('id'))
+        if (!is_null($id))
             return response()
-                ->json(Category::where('id', $request->input('id'))->first(), 200);
+                ->json(Category::where('id', $id)->first(), 200);
 
         return response()->json(Category::get(), 200);
     }
 
-    public function destroy(Request $request)
+    public function delete($id)
     {
-        if ($request->has('id')) {
-            $category = Category::where('id', $request->input('id'))->first();
-            if ($category) {
-                $response = $category;
-                $category->delete();
-                return response()->json($response, 200);
-            };
+        $category = Category::where('id', $id)->first();
+        if ($category) {
+            $response = $category;
+            $category->delete();
+            return response()->json($response, 200);
         }
 
-        return response()->json(['error' => ''], 412);
+        return response()->json(['error' => 'Категория не найдена'], 412);
+    }
+
+    public function update(Request $request, $id)
+    {
+        if ($request->has('name')) {
+            $category = Category::where('id', $id)->first();
+            if ($category) {
+                $category->update([
+                    'name' => $request->name
+                ]);
+                return response()->json($category, 200);
+            }
+        }
+
+        return response()->json(['error' => 'Отсутствуют необходимые параметры'], 412);
     }
 }
