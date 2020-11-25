@@ -30,3 +30,7 @@ Route::middleware('api.token')->post('categories/delete/{id}', [
 Route::middleware('api.token')->post('categories/update/{id}', [
     App\Http\Controllers\Api\CategoriesController::class, 'update'
 ])->name('api.categories.update');
+
+Route::middleware('api.token')->post('categories/create', [
+    App\Http\Controllers\Api\CategoriesController::class, 'create'
+])->name('api.categories.create');

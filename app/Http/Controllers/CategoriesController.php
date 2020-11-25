@@ -37,4 +37,9 @@ class CategoriesController extends Controller
             'category' => $category
         ]);
     }
+
+    public function create()
+    {
+        return view('categories.create');
+    }
 }

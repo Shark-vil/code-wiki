@@ -17,6 +17,26 @@ class CategoriesController extends Controller
         return response()->json(Category::get(), 200);
     }
 
+    public function create(Request $request)
+    {
+        if ($request->has('name')) {
+            $name = $request->input('name');
+            $category = Category::where('name', $name)->first();
+
+            if (Category::where('name', $name)->first()) {
+                response()->json(['error' => 'Такая категория уже существует'], 412);
+            } else {
+                $category = Category::create([
+                    'name' => $name
+                ]);
+
+                return response()->json($category, 200);
+            }
+        }
+
+        return response()->json(['error' => 'Отсутствуют необходимые параметры'], 412);
+    }
+
     public function delete($id)
     {
         $category = Category::where('id', $id)->first();

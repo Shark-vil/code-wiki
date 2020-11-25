@@ -5,8 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Список категорий</div>
-                <div class="card-body">
+                <div class="card-header">
+                    Список категорий
+                    <div class="float-right">
+                        <a class="btn btn-outline-primary btn-sm" 
+                            href="{{ route('categories.create') }}">
+                            Добавить категорию
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card-body">                        
                     <table class="table">
                         <thead>
                             <tr>
@@ -59,16 +68,13 @@
                 data: data,
                 success: function(response) {
                     console.log(response);
-
-                    if (response.id == id) {
-                        cells.getRow().remove();
-                        Toastify({
-                            text: "Категория '" + response.name + "' успешно удалена",
-                            duration: 3000,
-                            close: true,
-                            backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
-                        }).showToast();
-                    }
+                    cells.getRow().remove();
+                    Toastify({
+                        text: "Категория '" + response.name + "' успешно удалена",
+                        duration: 3000,
+                        close: true,
+                        backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
+                    }).showToast();
                 },
                 error: function(error) {
                     console.error(error)
