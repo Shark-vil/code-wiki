@@ -45,7 +45,6 @@
                     type: "POST",
                     data: form.serialize(),
                     success: function(response) {
-                        console.log(response);
                         Toastify({
                             text: "Категория '" + response.name  + "' была успешно создана",
                             duration: 3000,

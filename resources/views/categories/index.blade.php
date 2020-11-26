@@ -67,7 +67,6 @@
                 type: "POST",
                 data: data,
                 success: function(response) {
-                    console.log(response);
                     cells.getRow().remove();
                     Toastify({
                         text: "Категория '" + response.name + "' успешно удалена",

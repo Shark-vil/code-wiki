@@ -105,7 +105,6 @@
                     type: "POST",
                     data: form.serialize(),
                     success: function(response) {
-                        console.log(response);
                         Toastify({
                             text: "Страница '"+ response.library + "." + response.name  + "' была успешно создана",
                             duration: 3000,

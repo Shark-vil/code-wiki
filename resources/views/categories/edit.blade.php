@@ -48,7 +48,6 @@
                     type: "POST",
                     data: form.serialize(),
                     success: function(response) {
-                        console.log(response);
                         Toastify({
                             text: "Категория '" + currentName + "' изменена на '" + response.name + "'",
                             duration: 3000,
