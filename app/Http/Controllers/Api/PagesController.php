@@ -32,7 +32,7 @@ class PagesController extends Controller
 
     public function update(Request $request, $id)
     {
-        if ($request->has('name') && $request->has('library') && $request->has('category')) {
+        if ($request->has('name') && $request->has('category')) {
             $page = Page::where('id', $id)->first();
             if ($page) {
                 if ($page->name != $request->name && $page->library != $request->library) {
@@ -45,9 +45,12 @@ class PagesController extends Controller
                 $categoryName = $request->input('category');
                 $category = Category::where('name', $categoryName)->first();
                 if ($category) {
+                    $library = $request->input('library');
+                    $library = (empty(trim($library))) ? "Other" : $library;
+
                     $page->update([
                         'name' => $request->name,
-                        'library' => $request->library,
+                        'library' => $library,
                         'content' => $request->content,
                         'category_id' => $category->id
                     ]);
@@ -70,7 +73,7 @@ class PagesController extends Controller
             $category = Category::where('name', $categoryName)->first();
             if ($category) {
                 $category_id = $category->id;
-                $library = (empty(trim($library))) ? "Global" : $library;
+                $library = (empty(trim($library))) ? "Other" : $library;
 
                 $page = Page::where('name', $name)->where('library', $library)->first();
 

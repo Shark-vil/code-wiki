@@ -106,7 +106,7 @@
                 console.log(form.serializeArray());
 
                 $.ajax({
-                    url: ("{{ route('api.pages.update', $category->id ) }}"),
+                    url: ("{{ route('api.pages.update', $page->id ) }}"),
                     type: "POST",
                     data: form.serialize(),
                     success: function(response) {
