@@ -29,7 +29,7 @@
     <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -87,9 +87,7 @@
             </div>
         </nav>
 
-        <main class="py-0">
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 
     @yield('scripts')
