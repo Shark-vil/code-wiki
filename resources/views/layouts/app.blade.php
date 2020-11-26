@@ -46,19 +46,25 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link" href="{{ route('categories') }}">Категории</a>
                         </li>
-                        
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pages') }}">Страницы</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('wiki') }}">Wiki</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
