@@ -1,83 +1,79 @@
 @extends('layouts.wiki')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row flex">
-        <div class="col-sm-3 bg-dark text-white">
-            <div class="just-padding">
-                <form method="get">
-                    <input id="searchInput" class="form-control input-sm" 
-                        type="text" />
-                </form>
-                <hr>
-                <div id="methods-list" class="list-group list-group-root well">
-                    @foreach ($wikiStorage as $key => $item)
-                    @php
-                        $htmlCategotyId = str_replace(' ', '_', mb_strtolower($item['category']->name)) 
-                    @endphp
+<div class="row flex-grow-1 overflow-hidden">
+    <div class="col-2 mh-100 py-2 bg-dark">
+        <form method="get">
+            <input id="searchInput" class="form-control input-sm" 
+                type="text" />
+        </form>
+        <hr>
+        <div id="methods-list" class="mh-100 overflow-auto list-group list-group-root well">
+            @foreach ($wikiStorage as $key => $item)
+            @php
+                $htmlCategotyId = str_replace(' ', '_', mb_strtolower($item['category']->name)) 
+            @endphp
 
-                    <a href="#{{ $htmlCategotyId }}" 
-                        class="method-category list-group-item bg-dark text-white" 
-                        data-toggle="collapse"
+            <a href="#{{ $htmlCategotyId }}" 
+                class="method-category list-group-item bg-dark text-white" 
+                data-toggle="collapse"
 
-                    @php $categoryActive = '' @endphp
-                    @if (!is_null($getPage) && $getPage->category_id == $item['category']->id)
+            @php $categoryActive = '' @endphp
+            @if (!is_null($getPage) && $getPage->category_id == $item['category']->id)
+                aria-expanded="true"
+                @php $categoryActive = 'show' @endphp
+            @endif>{{ $item['category']->name }}
+            
+            <span class="badge badge-primary badge-pill float-right">{{ $item['pageCount'] }}</span>
+            </a>
+            <div class="list-group collapse {{ $categoryActive }}" id="{{ $htmlCategotyId }}">
+                @if (count($item['pages']) != 0)
+                    @foreach ($item['pages'] as $key => $page)
+                        <button class="method-page list-group-item bg-secondary text-white"
+                            onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
+                    @endforeach
+                @endif
+
+                @foreach ($item['libraries'] as $library => $pages)
+                @php
+                    $htmlLibraryId = str_replace(' ', '_', mb_strtolower($library)) 
+                @endphp
+                <a href="#{{ $htmlCategotyId . '-' . $htmlLibraryId }}" 
+                    class="method-library list-group-item bg-dark text-white" 
+                    data-toggle="collapse"
+
+                    @php $libraryActive = '' @endphp
+                    @if ($categoryActive && $getPage->library == $library)
                         aria-expanded="true"
-                        @php $categoryActive = 'show' @endphp
-                    @endif>{{ $item['category']->name }}
-                    
-                    <span class="badge badge-primary badge-pill float-right">{{ $item['pageCount'] }}</span>
-                    </a>
-                    <div class="list-group collapse {{ $categoryActive }}" id="{{ $htmlCategotyId }}">
-                        @if (count($item['pages']) != 0)
-                            @foreach ($item['pages'] as $key => $page)
-                                <button class="method-page list-group-item bg-secondary text-white"
-                                    onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
-                            @endforeach
-                        @endif
+                        @php $libraryActive = 'show' @endphp
+                    @endif>
 
-                        @foreach ($item['libraries'] as $library => $pages)
-                        @php
-                            $htmlLibraryId = str_replace(' ', '_', mb_strtolower($library)) 
-                        @endphp
-                        <a href="#{{ $htmlCategotyId . '-' . $htmlLibraryId }}" 
-                            class="method-library list-group-item bg-dark text-white" 
-                            data-toggle="collapse"
-
-                            @php $libraryActive = '' @endphp
-                            @if ($categoryActive && $getPage->library == $library)
-                                aria-expanded="true"
-                                @php $libraryActive = 'show' @endphp
-                            @endif>
-
-                            {{ $library }}
-                        </a>
-                        <div class="list-group collapse {{ $libraryActive }} bg-secondary text-white" id="{{ $htmlCategotyId . '-' . $htmlLibraryId }}">
-                            @foreach ($pages as $key => $page)
-                                <button class="method-page list-group-item bg-secondary text-white"
-                                    onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
-                            @endforeach
-                        </div>
-                        @endforeach
-
-                    </div>
+                    {{ $library }}
+                </a>
+                <div class="list-group collapse {{ $libraryActive }} bg-secondary text-white" id="{{ $htmlCategotyId . '-' . $htmlLibraryId }}">
+                    @foreach ($pages as $key => $page)
+                        <button class="method-page list-group-item bg-secondary text-white"
+                            onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
                     @endforeach
                 </div>
+                @endforeach
+
             </div>
+            @endforeach
         </div>
-        <div class="col-sm-9">
-            <div class="wiki-content">
-                @if (!is_null($getPage))
-                    @if ($getPage->library == null)
-                        <br><h1 class='text-center'>{{ $getPage->name }}</h1><hr>
-                    @else
-                        <br><h1 class='text-center'>{{ $getPage->library . '.' . $getPage->name }}</h1><hr>
-                    @endif
-                    {!! $getPage->content !!}
+    </div>
+    <div class='col mh-100 overflow-auto'>
+        <div class="wiki-content">
+            @if (!is_null($getPage))
+                @if ($getPage->library == null)
+                    <br><h1 class='text-center'>{{ $getPage->name }}</h1><hr>
+                @else
+                    <br><h1 class='text-center'>{{ $getPage->library . '.' . $getPage->name }}</h1><hr>
                 @endif
-            </div>
+                {!! $getPage->content !!}
+            @endif
         </div>
-      </div>
+    </div>
 </div>
 @endsection
 
