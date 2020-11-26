@@ -18,6 +18,47 @@ class PagesController extends Controller
         return response()->json(Page::get(), 200);
     }
 
+    public function delete($id)
+    {
+        $page = Page::where('id', $id)->first();
+        if ($page) {
+            $response = $page;
+            $page->delete();
+            return response()->json($response, 200);
+        }
+
+        return response()->json(['error' => 'Страница не найдена'], 412);
+    }
+
+    public function update(Request $request, $id)
+    {
+        if ($request->has('name') && $request->has('library') && $request->has('category')) {
+            $page = Page::where('id', $id)->first();
+            if ($page) {
+                if ($page->name != $request->name && $page->library != $request->library) {
+                    if (Page::where('name', $request->name)->where('library', $request->library)->first())
+                        return response()->json(['error' => 
+                            'Страница с такими параметрами уже существует'
+                        ], 412);
+                }
+
+                $categoryName = $request->input('category');
+                $category = Category::where('name', $categoryName)->first();
+                if ($category) {
+                    $page->update([
+                        'name' => $request->name,
+                        'library' => $request->library,
+                        'content' => $request->content,
+                        'category_id' => $category->id
+                    ]);
+                    return response()->json($page, 200);
+                }
+            }
+        }
+
+        return response()->json(['error' => 'Отсутствуют необходимые параметры'], 412);
+    }
+
     public function create(Request $request)
     {
         if ($request->has('name') && $request->has('category')) {

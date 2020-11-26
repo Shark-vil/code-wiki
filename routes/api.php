@@ -39,6 +39,14 @@ Route::get('pages/get/{id?}', [
     App\Http\Controllers\Api\PagesController::class, 'get'
 ])->name('api.pages.get');
 
+Route::middleware('api.token')->post('pages/delete/{id}', [
+    App\Http\Controllers\Api\PagesController::class, 'delete'
+])->name('api.pages.delete');
+
+Route::middleware('api.token')->post('pages/update/{id}', [
+    App\Http\Controllers\Api\PagesController::class, 'update'
+])->name('api.pages.update');
+
 Route::middleware('api.token')->post('pages/create', [
     App\Http\Controllers\Api\PagesController::class, 'create'
 ])->name('api.pages.create');

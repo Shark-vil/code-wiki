@@ -39,6 +39,14 @@ Route::get('/categories/create',
     [App\Http\Controllers\CategoriesController::class, 'create'])
     ->name('categories.create');
 
+    
+Route::get('/pages',
+    [App\Http\Controllers\PagesController::class, 'index'])
+    ->name('pages');
+
+Route::get('/pages/edit/{id}',
+    [App\Http\Controllers\PagesController::class, 'edit'])
+    ->name('pages.edit');
 
 Route::get('/pages/create',
     [App\Http\Controllers\PagesController::class, 'create'])
