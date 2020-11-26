@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('api.token')->get('categories/get/{id?}', [
+Route::get('categories/get/{id?}', [
     App\Http\Controllers\Api\CategoriesController::class, 'get'
 ])->name('api.categories.get');
 
@@ -35,6 +35,9 @@ Route::middleware('api.token')->post('categories/create', [
     App\Http\Controllers\Api\CategoriesController::class, 'create'
 ])->name('api.categories.create');
 
+Route::get('pages/get/{id?}', [
+    App\Http\Controllers\Api\PagesController::class, 'get'
+])->name('api.pages.get');
 
 Route::middleware('api.token')->post('pages/create', [
     App\Http\Controllers\Api\PagesController::class, 'create'

@@ -30,6 +30,7 @@
     <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote-bs4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/highlight.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

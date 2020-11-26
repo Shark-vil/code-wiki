@@ -9,6 +9,15 @@ use App\Models\Page;
 
 class PagesController extends Controller
 {
+    public function get($id = null)
+    {
+        if (!is_null($id))
+            return response()
+                ->json(Page::where('id', $id)->first(), 200);
+
+        return response()->json(Page::get(), 200);
+    }
+
     public function create(Request $request)
     {
         if ($request->has('name') && $request->has('category')) {

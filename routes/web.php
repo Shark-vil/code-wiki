@@ -25,7 +25,7 @@ Auth::routes([
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/wiki/{id?}', [App\Http\Controllers\HomeController::class, 'wiki'])->name('wiki');
 
 Route::get('/categories',
     [App\Http\Controllers\CategoriesController::class, 'index'])
