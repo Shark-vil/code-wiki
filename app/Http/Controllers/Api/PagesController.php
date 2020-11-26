@@ -46,7 +46,7 @@ class PagesController extends Controller
                 $category = Category::where('name', $categoryName)->first();
                 if ($category) {
                     $library = $request->input('library');
-                    $library = (empty(trim($library))) ? "Other" : $library;
+                    // $library = (empty(trim($library))) ? "Other" : $library;
 
                     $page->update([
                         'name' => $request->name,
@@ -73,7 +73,7 @@ class PagesController extends Controller
             $category = Category::where('name', $categoryName)->first();
             if ($category) {
                 $category_id = $category->id;
-                $library = (empty(trim($library))) ? "Other" : $library;
+                // $library = (empty(trim($library))) ? "Other" : $library;
 
                 $page = Page::where('name', $name)->where('library', $library)->first();
 

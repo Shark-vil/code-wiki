@@ -31,7 +31,8 @@ class HomeController extends Controller
         foreach ($categories as $key => $category) {
             $item = [
                 'category' => $category,
-                'libraries' => []
+                'libraries' => [],
+                'pages' => []
             ];
 
             $categoryId = array_push($wikiStorage, $item) - 1;
@@ -42,29 +43,39 @@ class HomeController extends Controller
             
             $lastLibrary = null;
             foreach ($pages as $key => $page) {
-                if ($page->library != $lastLibrary) {
-                    $lastLibrary = $page->library;
-                    $wikiStorage[$categoryId]['libraries'][$lastLibrary] = [];
-                }
+                if ($page->library == null) {
+                    array_push($wikiStorage[$categoryId]['pages'], $page);
+                } else {
+                    if ($page->library != $lastLibrary) {
+                        $lastLibrary = $page->library;
+                        $wikiStorage[$categoryId]['libraries'][$lastLibrary] = [];
+                    }
 
-                array_push($wikiStorage[$categoryId]['libraries'][$lastLibrary], $page);       
+                    array_push($wikiStorage[$categoryId]['libraries'][$lastLibrary], $page);
+                }
             }
             
-            $wikiStorage[$categoryId]['libCount'] = count($wikiStorage[$categoryId]['libraries'], COUNT_RECURSIVE) - count($wikiStorage[$categoryId]['libraries']);
+            $wikiStorage[$categoryId]['pageCount'] = count($wikiStorage[$categoryId]['libraries'], COUNT_RECURSIVE) - count($wikiStorage[$categoryId]['libraries']);
+            $wikiStorage[$categoryId]['pageCount'] += count($wikiStorage[$categoryId]['pages']);
         }
 
         $idSplit = null;
         if (isset($id) && !empty($id))
             $idSplit = mb_split('\.', $id);
 
-        if (is_null($idSplit) || count($idSplit) != 2) {
+        $splitCount = (is_null($idSplit)) ? 0 : count($idSplit);
+        if (is_null($idSplit) || $splitCount > 2 || $splitCount == 0) {
             return view('wiki', [
                 'wikiStorage' => $wikiStorage,
                 'getPage' => null
             ]);
         }
 
-        $getPage = Page::where('library', $idSplit[0])->where('name', $idSplit[1])->first();
+        $getPage;
+        if ($splitCount == 1)
+            $getPage = Page::where('name', $idSplit[0])->first();
+        else
+            $getPage = Page::where('library', $idSplit[0])->where('name', $idSplit[1])->first();
 
         return view('wiki', [
             'wikiStorage' => $wikiStorage,

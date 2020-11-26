@@ -26,9 +26,15 @@
                         @php $categoryActive = 'show' @endphp
                     @endif>{{ $item['category']->name }}
                     
-                    <span class="badge badge-primary badge-pill float-right">{{ $item['libCount'] }}</span>
+                    <span class="badge badge-primary badge-pill float-right">{{ $item['pageCount'] }}</span>
                     </a>
                     <div class="list-group collapse {{ $categoryActive }}" id="{{ $htmlCategotyId }}">
+                        @if (count($item['pages']) != 0)
+                            @foreach ($item['pages'] as $key => $page)
+                                <button class="method-page list-group-item bg-secondary text-white"
+                                    onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
+                            @endforeach
+                        @endif
 
                         @foreach ($item['libraries'] as $library => $pages)
                         @php
@@ -62,7 +68,11 @@
         <div class="col-sm-9">
             <div class="wiki-content">
                 @if (!is_null($getPage))
-                    <br><h1 class='text-center'>{{ $getPage->library . '.' . $getPage->name }}</h1><hr>
+                    @if ($getPage->library == null)
+                        <br><h1 class='text-center'>{{ $getPage->name }}</h1><hr>
+                    @else
+                        <br><h1 class='text-center'>{{ $getPage->library . '.' . $getPage->name }}</h1><hr>
+                    @endif
                     {!! $getPage->content !!}
                 @endif
             </div>
@@ -73,6 +83,14 @@
 
 @section('scripts')
     <script type="text/javascript">
+        function valueElementToId(val) {
+            var element = val.toString().trim();
+            element.replace('/\s/g', '_');
+            element = element.split("\n").slice(0, 1).join("\n");
+            element = element.toLowerCase();
+            return element;
+        };
+
         Array.prototype.inArray = function(element) { 
             for(var i = 0; i < this.length; i++)
                 if (this[i] == element) 
@@ -88,12 +106,13 @@
                     var library = response.library;
                     var name = response.name;
 
-                    var nextURL = '{{ route('wiki') }}/'+ library + "." + name;
+                    var nextURL = '{{ route('wiki') }}/' + (library ? library + "." + name : name)
                     var nextTitle = 'Method - ' + library + "." + name;
                     var nextState = { additionalInformation: 'Open new method information' };
                     window.history.pushState(nextState, nextTitle, nextURL);
 
-                    var header = "<br><h1 class='text-center'>" + library + "." + name + "</h1><hr>";
+                    var header = "<br><h1 class='text-center'>" + (library ? library + "." + name : name) + "</h1><hr>";
+
                     $('.wiki-content').empty().append(header);
                     $('.wiki-content').append(response.content);
                 },
@@ -110,14 +129,6 @@
         }
 
         $(function() {
-            function valueElementToId(val) {
-                var element = val.toString().trim();
-                element.replace('/\s/g', '_');
-                element = element.split("\n").slice(0, 1).join("\n");
-                element = element.toLowerCase();
-                return element;
-            };
-
             var allMethodsFinded = [];
             var categories = document.querySelector('#methods-list');
             var categoriesStorage = document.querySelectorAll('.method-category-storage');
@@ -154,6 +165,27 @@
                             parent: [ libraryNameId, categoryNameId ]
                         })
                     });
+                });
+
+                libraries.querySelectorAll('.method-page').forEach(postElement => {
+                    var isExist = false;
+                    var postNameId = valueElementToId(postElement.innerText);
+
+                    allMethodsFinded.forEach(element => {
+                        if (element.name == postNameId) {
+                            isExist = true;
+                            return false;
+                        }
+                    });
+                    
+                    if (!isExist) {
+                        allMethodsFinded.push({
+                            name: postNameId,
+                            element: postElement,
+                            main: libraries,
+                            parent: [ categoryNameId ]
+                        })
+                    }
                 });
             });
 

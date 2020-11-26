@@ -29,7 +29,7 @@
                             @foreach ($pages as $page)
                             <tr>
                                 <td scope="row">{{ $page->id }}</td>
-                                <td>{{ $page->library }}.{{ $page->name }}</td>
+                                <td>@if ($page->library != null){{ $page->library }}.@endif{{ $page->name }}</td>
                                 <td>
                                     <a class="btn btn-outline-primary btn-sm" 
                                         href="{{ route('pages.edit', $page->id) }}">
