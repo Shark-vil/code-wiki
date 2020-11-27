@@ -6,11 +6,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Список категорий
+                    {{ Language::get('categories')->control_panel }}
                     <div class="float-right">
-                        <a class="btn btn-outline-primary btn-sm" 
+                        <a class="btn btn-outline-primary btn-sm" style="min-width: 100px"
                             href="{{ route('categories.create') }}">
-                            Добавить категорию
+                            {{ Language::get('categories')->add_category }}
                         </a>
                     </div>
                 </div>
@@ -20,9 +20,9 @@
                         <thead>
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Название</th>
-                            <th scope="col">Редактировать</th>
-                            <th scope="col">Удалить</th>
+                            <th scope="col">{{ Language::get('categories')->table_name }}</th>
+                            <th scope="col">{{ Language::get('categories')->table_edit }}</th>
+                            <th scope="col">{{ Language::get('categories')->table_delete }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,15 +31,15 @@
                                 <td scope="row">{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>
-                                    <a class="btn btn-outline-primary btn-sm" 
+                                    <a class="btn btn-outline-primary btn-sm" style="min-width: 100px"
                                         href="{{ route('categories.edit', $category->id) }}">
-                                        Редактировать
+                                        {{ Language::get('categories')->table_edit }}
                                     </a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-outline-danger btn-sm" 
+                                    <button class="btn btn-outline-danger btn-sm" style="min-width: 100px"
                                         onclick="onDelete(this, {{ $category->id }})">
-                                        Удалить
+                                        {{ Language::get('categories')->table_delete }}
                                     </button>
                                 </td>
                             </tr>
@@ -69,7 +69,8 @@
                 success: function(response) {
                     cells.getRow().remove();
                     Toastify({
-                        text: "Категория '" + response.name + "' успешно удалена",
+                        text: ("{{ Language::get('categories')->success_delete_message }}")
+                            .replace('%name%', response.name),
                         duration: 3000,
                         close: true,
                         backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
@@ -78,7 +79,7 @@
                 error: function(error) {
                     console.error(error)
                     Toastify({
-                        text: "Возникла ошибка при попытке удалить категорию",
+                        text: "{{ Language::get('categories')->error_delete_message }}",
                         duration: 3000,
                         close: true,
                         backgroundColor: "linear-gradient(to right, #a32929, #c92424)",

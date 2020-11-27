@@ -108,8 +108,15 @@
                     var name = response.name;
 
                     var nextURL = '{{ route('wiki') }}/' + (library ? library + "." + name : name)
-                    var nextTitle = 'Method - ' + library + "." + name;
-                    var nextState = { additionalInformation: 'Open new method information' };
+                    var nextTitle = ('{{ Language::get('wiki')->open_new_page_title }}')
+                        .replace('%library%', library)
+                        .replace('%name%', name);
+
+                    var additionalInformationState = ('{{ Language::get('wiki')->open_new_page_state }}')
+                        .replace('%library%', library)
+                        .replace('%name%', name);
+
+                    var nextState = { additionalInformation: additionalInformationState };
                     window.history.pushState(nextState, nextTitle, nextURL);
 
                     var header = "<br><h1 class='text-center'>" + (library ? library + "." + name : name) + "</h1><hr>";
@@ -120,7 +127,7 @@
                 error: function(error) {
                     console.error(error)
                     Toastify({
-                        text: "Возникла ошибка при попытке получить контент страницы",
+                        text: "{{ Language::get('wiki')->error_load_page_message }}",
                         duration: 3000,
                         close: true,
                         backgroundColor: "linear-gradient(to right, #a32929, #c92424)",
@@ -261,6 +268,10 @@
             $('.carousel').carousel({
                 interval: false,
                 pause: true
+            });
+
+            $(window).on('popstate', function(event) {
+                document.location = document.location;
             });
         });
     </script>    

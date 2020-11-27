@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Создание категории</div>
+                <div class="card-header">{{ Language::get('categories')->create_page_title }}</div>
                 <div class="card-body">
                     <form class="form-group" id="create-form">
                         @csrf
                         
-                        <label>Название категории</label>
+                        <label>{{ Language::get('categories')->any_page_form_category_name }}</label>
                         <input type="text" class="form-control"
                             name="name" aria-describedby="emailHelp" 
-                            placeholder="Введите наименование категории"
+                            placeholder="{{ Language::get('categories')->any_page_form_category_name_help_text }}"
                             autocomplete="off">
 
                         <input type="hidden" name="api_token" 
@@ -22,7 +22,7 @@
                         <hr>
                         
                         <input type="submit" class="btn btn-primary" 
-                            value="Создать"/>
+                            value="{{ Language::get('categories')->create_page_form_submit }}"/>
                     </form>
                 </div>
             </div>
@@ -46,7 +46,8 @@
                     data: form.serialize(),
                     success: function(response) {
                         Toastify({
-                            text: "Категория '" + response.name  + "' была успешно создана",
+                            text: ("{{ Language::get('categories')->success_create_message }}")
+                                .replace('%name%', response.name),
                             duration: 3000,
                             close: true,
                             backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
@@ -56,7 +57,7 @@
                     error: function(error) {
                         console.error(error)
                         Toastify({
-                            text: "Возникла ошибка при попытке создать категорию",
+                            text: "{{ Language::get('categories')->error_create_message }}",
                             duration: 3000,
                             close: true,
                             backgroundColor: "linear-gradient(to right, #a32929, #c92424)",

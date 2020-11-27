@@ -5,30 +5,30 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Создание поста</div>
+                <div class="card-header">{{ Language::get('pages')->create_page_title }}</div>
                 <div class="card-body">
                     <form class="form-group" id="create-form">
                         @csrf
                         
-                        <label>Название библиотеки</label>
+                        <label>{{ Language::get('pages')->any_page_form_library_name }}</label>
                         <input type="text" class="form-control"
                             name="library" aria-describedby="emailHelp" 
-                            placeholder="Введите наименование библиотеки"
+                            placeholder="{{ Language::get('pages')->any_page_form_library_name_help_text }}"
                             autocomplete="off">
                         
                         <br>
 
-                        <label>Название функции</label>
+                        <label>{{ Language::get('pages')->any_page_form_name }}</label>
                         <input type="text" class="form-control"
                             name="name" aria-describedby="emailHelp" 
-                            placeholder="Введите наименование функции"
+                            placeholder="{{ Language::get('pages')->any_page_form_name_help_text }}"
                             autocomplete="off">
                         
                         <br>
 
-                        <label>Категория</label>
+                        <label>{{ Language::get('pages')->any_page_form_category_name }}</label>
                         <select class="form-control" name="category">
-                            <option value="" selected disabled hidden>Выберите категорию</option>
+                            <option value="" selected disabled hidden>{{ Language::get('pages')->any_page_form_category_name_help_text }}</option>
                             @foreach ($categories as $category)
                                 <option>{{ $category->name }}</option>
                             @endforeach
@@ -36,7 +36,7 @@
 
                         <br>
 
-                        <label>Документация</label>
+                        <label>{{ Language::get('pages')->any_page_form_content_name }}</label>
                         <textarea id="content" name="content"></textarea>
 
                         <input type="hidden" name="api_token" 
@@ -45,13 +45,13 @@
                         <hr>
                         
                         <input type="submit" class="btn btn-primary" 
-                            value="Создать"/>
+                            value="{{ Language::get('pages')->create_page_form_submit }}"/>
 
                         <button type="button" 
-                            class="btn btn-success preview-btn">Предпросмотр</button>
+                            class="btn btn-success preview-btn">{{ Language::get('pages')->any_page_form_preview }}</button>
                     </form>
                     
-                    <h2>Область предпросмотра</h2>
+                    <h2>{{ Language::get('pages')->any_page_preview_content_name }}</h2>
                     <hr>
                     <div id="preview-box"></div>
                 </div>
@@ -89,7 +89,7 @@
                     ['help', ['help']],
                     ['highlight', ['highlight']],
                 ],
-                lang:'ru-RU'
+                lang:'{{ env('APP_LANGUAGE') }}'
             });
 
             $('.preview-btn').click(function () {
@@ -108,7 +108,9 @@
                     data: form.serialize(),
                     success: function(response) {
                         Toastify({
-                            text: "Страница '"+ response.library + "." + response.name  + "' была успешно создана",
+                            text: ("{{ Language::get('pages')->success_create_message }}")
+                                .replace('%library%', response.library)
+                                .replace('%name%', response.name),
                             duration: 3000,
                             close: true,
                             backgroundColor: "linear-gradient(to right, #3c942b, #39ba20)",
@@ -118,7 +120,7 @@
                     error: function(error) {
                         console.error(error)
                         Toastify({
-                            text: "Возникла ошибка при попытке создать страницу",
+                            text: "{{ Language::get('pages')->error_update_message }}",
                             duration: 3000,
                             close: true,
                             backgroundColor: "linear-gradient(to right, #a32929, #c92424)",

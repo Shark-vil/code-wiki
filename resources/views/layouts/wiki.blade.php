@@ -28,9 +28,9 @@
 <body>
     <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ (is_null(Language::get()->site_name)) ? config('app.name', 'Laravel') : Language::get()->site_name }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -41,19 +41,19 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories') }}">Категории</a>
+                            <a class="nav-link" href="{{ route('home') }}">{{ Language::get('home')->title }}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('pages') }}">Страницы</a>
+                            <a class="nav-link" href="{{ route('categories') }}">{{ Language::get('categories')->title }}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('wiki') }}">Wiki</a>
+                            <a class="nav-link" href="{{ route('pages') }}">{{ Language::get('pages')->title }}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link" href="{{ route('wiki') }}">{{ Language::get('wiki')->title }}</a>
                         </li>
                         @endauth
                     </ul>
@@ -70,7 +70,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ Language::get('profile')->logout }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
