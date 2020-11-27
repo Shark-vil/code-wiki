@@ -251,11 +251,17 @@
 
 
             document.addEventListener('swiped-left', function(e) {
-                $('.carousel').carousel('next');
+                $('.carousel').carousel('next').carousel({
+                    interval: false,
+                    pause: true
+                });
             });
 
             document.addEventListener('swiped-right', function(e) {
-                $('.carousel').carousel('prev');
+                $('.carousel').carousel('prev').carousel({
+                    interval: false,
+                    pause: true
+                });
             });
 
             $('.carousel').carousel({

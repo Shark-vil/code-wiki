@@ -9,25 +9,23 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Fonts -->
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-nunito.css') }}" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/prettify.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/highlight.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
     <script src="{{ asset('js/swiped-events.js') }}"></script>
-
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://rawgit.com/google/code-prettify/master/src/prettify.css"/>
-    <script type="text/javascript" src="https://rawgit.com/google/code-prettify/master/src/prettify.js"></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/highlight.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/prettify.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
