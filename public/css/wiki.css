@@ -11,6 +11,12 @@
     overflow-y: scroll;
 }
 
+.carousel .carousel-item {
+    height: calc(100vh - 145px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .list-group.list-group-root {
     padding-top: 0;
     float: left;

@@ -1,8 +1,11 @@
 @extends('layouts.wiki')
 
 @section('content')
-<div class="row flex-grow-1 overflow-hidden carousel slide">
-    <div class="col-2 mh-100 py-2 bg-dark">
+<div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" data-ride="carousel">
+    @if ($agent->isMobile()) <div class="carousel-inner"> @endif
+
+    <div class="@if ($agent->isMobile()) carousel-item active @else col-2 bg-dark @endif mh-100 py-2">
+        @if ($agent->isMobile()) <br> @endif
         <form method="get">
             <input id="searchInput" class="form-control input-sm" 
                 type="text" />
@@ -62,7 +65,7 @@
             @endforeach
         </div>
     </div>
-    <div class='col mh-100 overflow-auto'>
+    <div class='@if ($agent->isMobile()) carousel-item @else col @endif mh-100 overflow-auto'>
         <div class="wiki-content">
             @if (!is_null($getPage))
                 @if ($getPage->library == null)
@@ -74,6 +77,8 @@
             @endif
         </div>
     </div>
+
+    @if ($agent->isMobile()) </div> @endif
 </div>
 @endsection
 
@@ -242,6 +247,20 @@
                         }
                     }
                 }
+            });
+
+
+            document.addEventListener('swiped-left', function(e) {
+                $('.carousel').carousel('next');
+            });
+
+            document.addEventListener('swiped-right', function(e) {
+                $('.carousel').carousel('prev');
+            });
+
+            $('.carousel').carousel({
+                interval: false,
+                pause: true
             });
         });
     </script>    
