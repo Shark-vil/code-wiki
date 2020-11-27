@@ -42,8 +42,8 @@
             context.memo('button.highlight', function () {
                 // create button
                 var button = ui.button({
-                    contents: '<i class="fa fa-file-code-o"></i>',
-                    tooltip: 'highlight',
+                    contents: '<i class="note-icon-code"></i>',
+                    tooltip: lang.highlight.desc,
                     click: function () {
                         self.show()
                     }
@@ -60,11 +60,12 @@
                 var $selectGroup = $('<div class="form-group" />');
                 var $textGroup = $('<div class="form-group" />');
                 var $select = $('<select class="form-control ext-highlight-select" />');
+                var $custom = $('<input class="form-control ext-highlight-custom" />');
 
                 var languages = [
-                    'css', 'htm', 'html', 'php', 'java', 'js', 'xml', 'sql', 'py', 'rb', // popular lang
+                    'lua', 'css', 'htm', 'html', 'php', 'java', 'js', 'xml', 'sql', 'py', 'rb',
                     'apoll', 'basic', 'clj', 'coffee', 'dart', 'erlan', 'go', 'hs',
-                    'lasso', 'lisp', 'llvm', 'logta', 'lua', 'matla', 'ml', 'mumps', 'n',
+                    'lasso', 'lisp', 'llvm', 'logta', 'matla', 'ml', 'mumps', 'n',
                     'pasca', 'perl', 'proto', 'r', 'rd', 'rust', 'scala', 'swift',
                     'tcl', 'tex', 'vb', 'vhdl', 'wiki', 'xhtml', 'xq', 'yaml'
                 ];
@@ -74,13 +75,18 @@
                 }
 
                 var $label = $('<label />');
-                $label.html('Select language');
+                $label.html(lang.highlight.select);
                 $box.append($selectGroup.append($label));
                 $box.append($selectGroup.append($select));
 
+                $label = $('<br><label />');
+                $label.html(lang.highlight.custom);
+                $box.append($selectGroup.append($label));
+                $box.append($selectGroup.append($custom));
+
                 var $label = $('<label />');
-                $label.html('Enter the code fragment');
-                var $textarea = $('<textarea class="ext-highlight-code form-control" rows="10" />');
+                $label.html(lang.highlight.codeFragment);
+                var $textarea = $('<textarea class="ext-highlight-code form-control" rows="8" />');
 
                 $box.append($textGroup.append($label));
                 $box.append($textGroup.append($textarea));
@@ -88,16 +94,21 @@
                 return $box.html();
             };
 
-            this.createCodeNode = function (code, select) {
+            this.createCodeNode = function (code, select, custom) {
                 var $code = $('<code>');
                 $code.html(code.replace(/</g,"&lt;").replace(/>/g,"&gt;"));
-                $code.addClass('language-' + select);
+                if (custom != null && custom.length != 0)
+                    $code.addClass('language-' + custom);
+                else
+                    $code.addClass('language-' + select);
+                $code.addClass('hljs');
 
+                var $p = $('<p>');
                 var $pre = $('<pre>');
                 $pre.html($code)
-                $pre.addClass('prettyprint').addClass('linenums');
+                $p.html($pre)
 
-                return $pre[0];
+                return $p[0];
             };
 
             this.showHighlightDialog = function (codeInfo) {
@@ -105,6 +116,7 @@
                     var $extHighlightCode = self.$dialog.find('.ext-highlight-code');
                     var $extHighlightBtn = self.$dialog.find('.ext-highlight-btn');
                     var $extHighlightSelect = self.$dialog.find('.ext-highlight-select');
+                    var $extHighlightCustom = self.$dialog.find('.ext-highlight-custom');
 
                     ui.onDialogShown(self.$dialog, function () {
                         context.triggerEvent('dialog.shown');
@@ -121,7 +133,8 @@
                             event.preventDefault();
                             context.invoke('editor.restoreRange');
                             context.invoke('editor.focus');
-                            context.invoke('editor.insertNode', self.createCodeNode(codeInfo, $extHighlightSelect.val()));
+                            context.invoke('editor.insertNode', self.createCodeNode(codeInfo, $extHighlightSelect.val(), $extHighlightCustom.val()));
+                            context.invoke('editor.insertNode', $('<p>')[0]);
 
                             self.$dialog.modal('hide');
                         });
@@ -168,13 +181,13 @@
 
                 var body = [
                     '<button href="#" class="btn btn-primary ext-highlight-btn disabled" disabled>',
-                    'Insert code',
+                    lang.highlight.insertCode,
                     '</button>'
                 ].join('');
 
                 this.$dialog = ui.dialog({
                     className: 'ext-highlight',
-                    title: 'Insert code',
+                    title: lang.highlight.insertCode,
                     body: this.createDialog(),
                     footer: body,
                     //callback: function ($node) {
