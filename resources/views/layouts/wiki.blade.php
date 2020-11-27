@@ -10,14 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-nunito.css') }}" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ asset('css/font/font-nunito.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/prettify.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/prettify.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/highlight.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/highlight.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/highlight/a11y-dark.css') }}" rel="stylesheet">
     <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -25,7 +26,8 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
     <script src="{{ asset('js/swiped-events.js') }}"></script>
-    <script src="{{ asset('js/prettify.js') }}"></script>
+    {{-- <script src="{{ asset('js/prettify.js') }}"></script> --}}
+    <script src="{{ asset('js/highlight/highlight.min.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">

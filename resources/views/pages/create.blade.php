@@ -65,12 +65,15 @@
     <script type="text/javascript">
         $(function() {
             function compilePost() {
-                prettyPrint();
+                // prettyPrint();
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
                 return $('#content').summernote('code');
             };
 
             $('#content').summernote({
-                height: 250,
+                height: 300,
                 tabsize: 2,
                 prettifyHtml: false,
                 toolbar:[
@@ -95,10 +98,9 @@
 
             $("#create-form").submit(function(e) {
                 e.preventDefault();
+                $("#edit-form textarea[id=content]").val(compilePost())
 
                 var form = $(this);
-
-                console.log(form.serializeArray());
 
                 $.ajax({
                     url: ("{{ route('api.pages.create') }}"),
