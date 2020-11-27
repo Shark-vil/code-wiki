@@ -1,7 +1,7 @@
 @extends('layouts.wiki')
 
 @section('content')
-<div class="row flex-grow-1 overflow-hidden">
+<div class="row flex-grow-1 overflow-hidden carousel slide">
     <div class="col-2 mh-100 py-2 bg-dark">
         <form method="get">
             <input id="searchInput" class="form-control input-sm" 
