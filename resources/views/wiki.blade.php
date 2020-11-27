@@ -1,7 +1,7 @@
 @extends('layouts.wiki')
 
 @section('content')
-<div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" data-interval="false">
+<div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" @if ($agent->isMobile()) data-interval="false" @endif>
     @if ($agent->isMobile()) <div class="carousel-inner"> @endif
 
     <div class="@if ($agent->isMobile()) carousel-item active @else col-2 bg-dark @endif mh-100 py-2">
