@@ -1,7 +1,7 @@
 @extends('layouts.wiki')
 
 @section('content')
-<div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" data-ride="carousel">
+<div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" @if ($agent->isMobile()) data-interval="false" @endif>
     @if ($agent->isMobile()) <div class="carousel-inner"> @endif
 
     <div class="@if ($agent->isMobile()) carousel-item active @else col-2 bg-dark @endif mh-100 py-2">
@@ -251,17 +251,11 @@
 
 
             document.addEventListener('swiped-left', function(e) {
-                $('.carousel').carousel('next').carousel({
-                    interval: false,
-                    pause: true
-                });
+                $('.carousel').carousel('next');
             });
 
             document.addEventListener('swiped-right', function(e) {
-                $('.carousel').carousel('prev').carousel({
-                    interval: false,
-                    pause: true
-                });
+                $('.carousel').carousel('prev');
             });
 
             $('.carousel').carousel({
