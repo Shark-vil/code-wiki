@@ -13,6 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
+    <script src="{{ asset('js/swiped-events.js') }}"></script>
 
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://rawgit.com/google/code-prettify/master/src/prettify.css"/>

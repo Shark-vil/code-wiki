@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Page;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
 {
@@ -63,11 +64,14 @@ class HomeController extends Controller
         if (isset($id) && !empty($id))
             $idSplit = mb_split('\.', $id);
 
+        $agent = new Agent();
+
         $splitCount = (is_null($idSplit)) ? 0 : count($idSplit);
         if (is_null($idSplit) || $splitCount > 2 || $splitCount == 0) {
             return view('wiki', [
                 'wikiStorage' => $wikiStorage,
-                'getPage' => null
+                'getPage' => null,
+                'agent' => $agent
             ]);
         }
 
@@ -79,7 +83,8 @@ class HomeController extends Controller
 
         return view('wiki', [
             'wikiStorage' => $wikiStorage,
-            'getPage' => $getPage
+            'getPage' => $getPage,
+            'agent' => $agent
         ]);
     }
 }
