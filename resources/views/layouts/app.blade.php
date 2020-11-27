@@ -15,10 +15,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/prettify.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote-bs4.min.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/highlight.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/highlight/a11y-dark.css') }}" rel="stylesheet">
     <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
 
@@ -29,7 +27,6 @@
     <script src="{{ asset('js/summernote-bs4.min.js') }}" defer></script>
     <script src="{{ asset('js/lang/summernote-ru-RU.min.js') }}" defer></script>
     <script src="{{ asset('js/summernote-ext-highlight.js') }}" defer></script>
-    {{-- <script src="{{ asset('js/prettify.js') }}"></script> --}}
     <script src="{{ asset('js/highlight/highlight.min.js') }}"></script>
 </head>
 <body>

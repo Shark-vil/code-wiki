@@ -42,8 +42,8 @@
             context.memo('button.highlight', function () {
                 // create button
                 var button = ui.button({
-                    contents: '<i class="fa fa-file-code-o"></i>',
-                    tooltip: 'highlight',
+                    contents: '<i class="note-icon-code"></i>',
+                    tooltip: lang.highlight.desc,
                     click: function () {
                         self.show()
                     }
@@ -75,17 +75,17 @@
                 }
 
                 var $label = $('<label />');
-                $label.html('Select language');
+                $label.html(lang.highlight.select);
                 $box.append($selectGroup.append($label));
                 $box.append($selectGroup.append($select));
 
-                $label = $('<label />');
-                $label.html('Custom language');
+                $label = $('<br><label />');
+                $label.html(lang.highlight.custom);
                 $box.append($selectGroup.append($label));
                 $box.append($selectGroup.append($custom));
 
                 var $label = $('<label />');
-                $label.html('Enter the code fragment');
+                $label.html(lang.highlight.codeFragment);
                 var $textarea = $('<textarea class="ext-highlight-code form-control" rows="8" />');
 
                 $box.append($textGroup.append($label));
@@ -181,13 +181,13 @@
 
                 var body = [
                     '<button href="#" class="btn btn-primary ext-highlight-btn disabled" disabled>',
-                    'Insert code',
+                    lang.highlight.insertCode,
                     '</button>'
                 ].join('');
 
                 this.$dialog = ui.dialog({
                     className: 'ext-highlight',
-                    title: 'Insert code',
+                    title: lang.highlight.insertCode,
                     body: this.createDialog(),
                     footer: body,
                     //callback: function ($node) {

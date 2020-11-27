@@ -15,9 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/prettify.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/toastify.min.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/highlight.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/highlight/a11y-dark.css') }}" rel="stylesheet">
     <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
 
@@ -26,7 +24,6 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
     <script src="{{ asset('js/swiped-events.js') }}"></script>
-    {{-- <script src="{{ asset('js/prettify.js') }}"></script> --}}
     <script src="{{ asset('js/highlight/highlight.min.js') }}"></script>
 </head>
 <body>
