@@ -40,6 +40,8 @@
                                 <i class="rc"></i>
                             @elseif ($page->is_client && !$page->is_menu && $page->is_server)
                                 <i class="rc rs"></i>
+                            @elseif ($page->is_client && $page->is_menu && !$page->is_server)
+                                <i class="rc rm"></i>
                             @elseif ($page->is_client && $page->is_menu && $page->is_server)
                                 <i class="rc rm rs"></i>
                             @endif
@@ -75,6 +77,8 @@
                                 <i class="rc"></i>
                             @elseif ($page->is_client && !$page->is_menu && $page->is_server)
                                 <i class="rc rs"></i>
+                            @elseif ($page->is_client && $page->is_menu && !$page->is_server)
+                                <i class="rc rm"></i>
                             @elseif ($page->is_client && $page->is_menu && $page->is_server)
                                 <i class="rc rm rs"></i>
                             @endif
