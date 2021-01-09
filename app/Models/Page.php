@@ -13,6 +13,9 @@ class Page extends Model
         'category_id',
         'library',
         'name',
-        'content'
+        'content',
+        'is_client',
+        'is_server',
+        'is_menu'
     ];
 }
