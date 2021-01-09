@@ -36,13 +36,13 @@
 
                         <br>
 
-                        <input type="checkbox" name="is_server" {{ ($page->is_server == 1) ? "checked" : "" }}/>
+                        <input type="checkbox" name="is_server"/>
                         <label>Is server function</label><br>
 
-                        <input type="checkbox" name="is_client" {{ ($page->is_client == 1) ? "checked" : "" }}/>
+                        <input type="checkbox" name="is_client"/>
                         <label>Is client function</label><br>
 
-                        <input type="checkbox" name="is_menu" {{ ($page->is_menu == 1) ? "checked" : "" }}/>
+                        <input type="checkbox" name="is_menu"/>
                         <label>Is menu function</label><br>
 
                         <hr>
