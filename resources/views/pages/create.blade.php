@@ -36,6 +36,17 @@
 
                         <br>
 
+                        <input type="checkbox" name="is_server"/>
+                        <label>Is server function</label><br>
+
+                        <input type="checkbox" name="is_client"/>
+                        <label>Is client function</label><br>
+
+                        <input type="checkbox" name="is_menu"/>
+                        <label>Is menu function</label><br>
+
+                        <hr>
+
                         <label>{{ Language::get('pages')->any_page_form_content_name }}</label>
                         <textarea id="content" name="content"></textarea>
 

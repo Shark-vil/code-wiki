@@ -4,7 +4,7 @@
 <div class="@if ($agent->isMobile()) carousel slide @else row flex-grow-1 overflow-hidden @endif" @if ($agent->isMobile()) data-interval="false" @endif>
     @if ($agent->isMobile()) <div class="carousel-inner"> @endif
 
-    <div class="@if ($agent->isMobile()) carousel-item active @else col-2 bg-dark @endif mh-100 py-2">
+    <div class="@if ($agent->isMobile()) carousel-item active @else menu-block bg-dark @endif mh-100 py-2">
         @if ($agent->isMobile()) <br> @endif
         <form method="get">
             <input id="searchInput" class="form-control input-sm" 
@@ -33,7 +33,21 @@
                 @if (count($item['pages']) != 0)
                     @foreach ($item['pages'] as $key => $page)
                         <button class="method-page list-group-item bg-secondary text-white"
-                            onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
+                            onclick="loadInfo('{{ $page->id }}')">
+                            @if (!$page->is_client && !$page->is_menu && $page->is_server)
+                                <i class="rs"></i>
+                            @elseif ($page->is_client && !$page->is_menu && !$page->is_server)
+                                <i class="rc"></i>
+                            @elseif ($page->is_client && !$page->is_menu && $page->is_server)
+                                <i class="rc rs"></i>
+                            @elseif ($page->is_client && $page->is_menu && !$page->is_server)
+                                <i class="rc rm"></i>
+                            @elseif ($page->is_client && $page->is_menu && $page->is_server)
+                                <i class="rc rm rs"></i>
+                            @endif
+                            
+                            {{ $page->name }}
+                        </button>
                     @endforeach
                 @endif
 
@@ -56,7 +70,20 @@
                 <div class="list-group collapse {{ $libraryActive }} bg-secondary text-white" id="{{ $htmlCategotyId . '-' . $htmlLibraryId }}">
                     @foreach ($pages as $key => $page)
                         <button class="method-page list-group-item bg-secondary text-white"
-                            onclick="loadInfo('{{ $page->id }}')">{{ $page->name }}</button>
+                            onclick="loadInfo('{{ $page->id }}')">
+                            @if (!$page->is_client && !$page->is_menu && $page->is_server)
+                                <i class="rs"></i>
+                            @elseif ($page->is_client && !$page->is_menu && !$page->is_server)
+                                <i class="rc"></i>
+                            @elseif ($page->is_client && !$page->is_menu && $page->is_server)
+                                <i class="rc rs"></i>
+                            @elseif ($page->is_client && $page->is_menu && !$page->is_server)
+                                <i class="rc rm"></i>
+                            @elseif ($page->is_client && $page->is_menu && $page->is_server)
+                                <i class="rc rm rs"></i>
+                            @endif
+                            {{ $page->name }}
+                        </button>
                     @endforeach
                 </div>
                 @endforeach

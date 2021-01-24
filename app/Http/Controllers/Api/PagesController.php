@@ -47,12 +47,15 @@ class PagesController extends Controller
                 if ($category) {
                     $library = $request->input('library');
                     // $library = (empty(trim($library))) ? "Other" : $library;
-
+                    
                     $page->update([
                         'name' => $request->name,
                         'library' => $library,
                         'content' => $request->content,
-                        'category_id' => $category->id
+                        'category_id' => $category->id,
+                        'is_server' => isset($request->is_server),
+                        'is_client' => isset($request->is_client),
+                        'is_menu' => isset($request->is_menu),
                     ]);
                     return response()->json($page, 200);
                 }
@@ -69,6 +72,9 @@ class PagesController extends Controller
             $library = $request->input('library');
             $categoryName = $request->input('category');
             $content = $request->input('content');
+            $is_server = $request->input('is_server');
+            $is_client = $request->input('is_client');
+            $is_menu = $request->input('is_menu');
 
             $category = Category::where('name', $categoryName)->first();
             if ($category) {
@@ -82,7 +88,10 @@ class PagesController extends Controller
                         'library' => $library,
                         'name' => $name,
                         'content' => $content,
-                        'category_id' => $category_id
+                        'category_id' => $category_id,
+                        'is_server' => isset($is_server),
+                        'is_client' => isset($is_client),
+                        'is_menu' => isset($is_menu),
                     ]);
                     return response()->json($page, 200);
                 }
