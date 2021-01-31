@@ -18,15 +18,18 @@
     <link href="{{ asset('css/summernote-bs4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/highlight/a11y-dark.css') }}" rel="stylesheet">
     <link href="{{ asset('css/wiki.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/editor.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-multiselect.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/toastify-js.js') }}"></script>
     <script src="{{ asset('js/summernote-bs4.min.js') }}" defer></script>
     <script src="{{ asset('js/lang/summernote-' . env('APP_LANGUAGE') . '.min.js') }}" defer></script>
     <script src="{{ asset('js/summernote-ext-highlight.js') }}" defer></script>
     <script src="{{ asset('js/highlight/highlight.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-multiselect.min.js') }}"></script>
 </head>
 <body>
     <div id="app">
